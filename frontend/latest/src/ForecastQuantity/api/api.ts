@@ -6,7 +6,7 @@ export type Sdk = ReturnType<typeof getSdk>;
 
 export type PluginData = { id?: string; data: string; stockLineId: string };
 
-const DATA_IDENTIFIER = 'donor';
+const DATA_IDENTIFIER = 'FORECAST_QUANTITY_INFO';
 
 export const getPluginQueries = (sdk: Sdk, storeId: string) => ({
   get: {
