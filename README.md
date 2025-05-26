@@ -12,3 +12,7 @@ Contains a suite of "forecasting" plugins for Open mSupply:
 ## Front-end
 
 - `ForecastQuantity`: inserts a new column on the Internal Orders "Detail" view: "Forecast amount", which is displayed to the right of "Suggested Quantity" and displayed the forecast value calculated above (and fetched from the "plugin_data" associated with a requisition_line record).
+
+## TO-DO:
+
+Would like to combine this repo in a common "open msupply public plugins" repo, but in order to do that we need to be able to store multiple plugin structures within one repo, which doesn't currently work with the plugin folder structure.
