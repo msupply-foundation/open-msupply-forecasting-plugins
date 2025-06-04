@@ -25,6 +25,7 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
       dataIdentifier: { equalTo: 'FORECAST_QUANTITY_INFO' },
       relatedRecordId: { equalTo: line.id },
     },
+    key: line.id,
   });
 
   const parsed = JSON.parse(data?.[0]?.data ?? '{}');
@@ -35,7 +36,7 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
     <ThemeProviderProxy>
       <QueryClientProviderProxy>
         <ValueInfoRow
-          key="forecasting-plugin-field"
+          key={`forecasting-plugin-field_${line.id}`}
           value={value}
           label="Forecast Quantity"
           representation="units"
