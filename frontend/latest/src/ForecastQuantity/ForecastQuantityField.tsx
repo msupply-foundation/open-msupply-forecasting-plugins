@@ -6,8 +6,8 @@ import {
   ThemeProviderProxy,
   UNDEFINED_STRING_VALUE,
 } from '@openmsupply-client/common';
-import { usePluginData } from './api';
 import { ValueInfoRow } from 'packages/requisitions/src/common';
+import { usePluginData } from '../../../../../api';
 
 export type ForecastQuantityFieldPlugin = ArrayElement<
   NonNullable<Plugins['requestRequisitionLine']>['editViewField']
@@ -17,7 +17,15 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
   line,
   unitName,
 }) => {
-  const { data } = usePluginData.data([line.id]);
+  const {
+    query: { data },
+  } = usePluginData({
+    pluginCode: 'forecasting_plugins',
+    filter: {
+      dataIdentifier: { equalTo: 'FORECAST_QUANTITY_INFO' },
+      relatedRecordId: { equalTo: line.id },
+    },
+  });
 
   const parsed = JSON.parse(data?.[0]?.data ?? '{}');
   const value =
