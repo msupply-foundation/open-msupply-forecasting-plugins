@@ -25,7 +25,7 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
       dataIdentifier: { equalTo: 'FORECAST_QUANTITY_INFO' },
       relatedRecordId: { equalTo: line.id },
     },
-    queryKey: line.id,
+    queryKey: [line.id],
   });
 
   const parsed = JSON.parse(data?.[0]?.data ?? '{}');
