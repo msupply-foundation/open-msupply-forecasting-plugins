@@ -6,7 +6,7 @@ import {
   ThemeProviderProxy,
   UNDEFINED_STRING_VALUE,
 } from '@openmsupply-client/common';
-import { ValueInfoRow } from 'packages/requisitions/src/common';
+import { ValueInfoRow } from '@openmsupply-client/requisitions/src/common';
 import { usePluginData } from '../../../../../api';
 
 export type ForecastQuantityFieldPlugin = ArrayElement<
