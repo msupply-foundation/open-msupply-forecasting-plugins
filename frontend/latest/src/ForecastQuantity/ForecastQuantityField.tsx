@@ -1,19 +1,21 @@
 import React from 'react';
 import {
   ArrayElement,
-  BasicTextInput,
-  InputWithLabelRow,
   Plugins,
   QueryClientProviderProxy,
   ThemeProviderProxy,
 } from '@openmsupply-client/common';
 import { usePluginData } from './api';
+import { ValueInfoRow } from 'packages/requisitions/src/common';
 
 export type ForecastQuantityFieldPlugin = ArrayElement<
   NonNullable<Plugins['requestRequisitionLine']>['editViewField']
 >;
 
-const ForecastQuantityField: ForecastQuantityFieldPlugin = ({ line }) => {
+const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
+  line,
+  unitName,
+}) => {
   const { data } = usePluginData.data([line.id]);
 
   const parsed = JSON.parse(data?.[0]?.data ?? '{}');
@@ -21,22 +23,13 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({ line }) => {
   return (
     <ThemeProviderProxy>
       <QueryClientProviderProxy>
-        <InputWithLabelRow
-          label={'Forecast Quantity'}
-          labelWidth="200px"
-          sx={{
-            justifyContent: 'space-between',
-            '.MuiFormControl-root > .MuiInput-root > input': {
-              maxWidth: '120px',
-              textAlign: 'right',
-            },
-          }}
-          Input={
-            <BasicTextInput
-              value={String(Math.ceil(parsed?.forecastTotal))}
-              disabled
-            />
-          }
+        <ValueInfoRow
+          key="forecasting-plugin-field"
+          value={Math.ceil(parsed?.forecastTotal)}
+          label="Forecast Quantity"
+          representation="units"
+          unitName={unitName}
+          defaultPackSize={1}
         />
       </QueryClientProviderProxy>
     </ThemeProviderProxy>
