@@ -4,6 +4,7 @@ import {
   Plugins,
   QueryClientProviderProxy,
   ThemeProviderProxy,
+  UNDEFINED_STRING_VALUE,
 } from '@openmsupply-client/common';
 import { usePluginData } from './api';
 import { ValueInfoRow } from 'packages/requisitions/src/common';
@@ -19,17 +20,20 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
   const { data } = usePluginData.data([line.id]);
 
   const parsed = JSON.parse(data?.[0]?.data ?? '{}');
+  const value =
+    parsed?.forecastTotal === null ? null : Math.ceil(parsed?.forecastTotal);
 
   return (
     <ThemeProviderProxy>
       <QueryClientProviderProxy>
         <ValueInfoRow
           key="forecasting-plugin-field"
-          value={Math.ceil(parsed?.forecastTotal)}
+          value={value}
           label="Forecast Quantity"
           representation="units"
           unitName={unitName}
           defaultPackSize={1}
+          nullDisplay={UNDEFINED_STRING_VALUE}
         />
       </QueryClientProviderProxy>
     </ThemeProviderProxy>

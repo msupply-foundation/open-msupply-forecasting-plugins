@@ -19,7 +19,6 @@ export const getPluginQueries = (sdk: Sdk, storeId: string) => ({
       });
 
       const { pluginData } = result;
-      console.log(pluginData);
       if (pluginData?.__typename === 'PluginDataConnector') {
         return pluginData.nodes;
       }

@@ -8,6 +8,7 @@ import {
   PluginDataStore,
   Plugins,
   QueryClientProviderProxy,
+  UNDEFINED_STRING_VALUE,
 } from '@openmsupply-client/common';
 import { RequestLineFragment } from '@openmsupply-client/system';
 import { usePluginData } from '../../../../../api';
@@ -55,7 +56,7 @@ const ForecastColumn = ({ rowData }: CellProps<RequestLineFragment>) => {
   const parsed = JSON.parse(getById(rowData)?.data || '{}');
   const value = parsed?.forecastTotal
     ? String(Math.ceil(parsed?.forecastTotal))
-    : '';
+    : UNDEFINED_STRING_VALUE;
 
   return <BasicCellLayout>{value}</BasicCellLayout>;
 };
