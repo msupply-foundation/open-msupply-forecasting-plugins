@@ -87,6 +87,8 @@ const plugins: BackendPlugins = {
 
 interface ForecastQuantityData {
   courseTitle: string;
+  numberOfDoses: number;
+  coverageRate: number;
   targetPopulation: number;
   lossFactor: number;
   annualTargetDoses: number;
@@ -121,21 +123,24 @@ const calculateForecastQuantities = (
 
   for (const course of vaccineCourses) {
     const {
-      coverage_rate,
+      coverage_rate: coverageRate,
       vaccine_course_name,
       demographic_name,
-      doses,
+      doses: numberOfDoses,
       wastage_rate,
       population_percentage,
-      vaccine_doses: dosesPerUnit,
+      vaccine_doses,
     } = course;
 
     const targetPopulation = population_served * (population_percentage / 100);
 
     const lossFactor = 1 / (1 - wastage_rate / 100);
 
+    // If vaccine_doses = 0, we should use 1
+    const dosesPerUnit = vaccine_doses || 1;
+
     const annualTargetDoses =
-      targetPopulation * doses * (coverage_rate / 100) * lossFactor;
+      targetPopulation * numberOfDoses * (coverageRate / 100) * lossFactor;
 
     // log('buffer_stock: ' + bufferStockMonths);
     // log('supplyPeriod: ' + supplyPeriodMonths);
@@ -155,6 +160,8 @@ const calculateForecastQuantities = (
 
     forecastValues.push({
       courseTitle,
+      numberOfDoses,
+      coverageRate,
       targetPopulation,
       lossFactor,
       annualTargetDoses,
