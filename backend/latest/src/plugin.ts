@@ -89,9 +89,10 @@ interface ForecastQuantityData {
   courseTitle: string;
   targetPopulation: number;
   lossFactor: number;
-  annualTargetStock: number;
+  annualTargetDoses: number;
   bufferStockMonths: number;
   supplyPeriodMonths: number;
+  dosesPerUnit: number;
   forecastDoses: number;
   forecastUnits: number;
 }
@@ -116,7 +117,7 @@ const calculateForecastQuantities = (
 
   if (vaccineCourses.length === 0) return [];
 
-  const forecastValues = [];
+  const forecastValues: ForecastQuantityData[] = [];
 
   for (const course of vaccineCourses) {
     const {
@@ -126,14 +127,14 @@ const calculateForecastQuantities = (
       doses,
       wastage_rate,
       population_percentage,
-      vaccine_doses,
+      vaccine_doses: dosesPerUnit,
     } = course;
 
     const targetPopulation = population_served * (population_percentage / 100);
 
     const lossFactor = 1 / (1 - wastage_rate / 100);
 
-    const annualTargetStock =
+    const annualTargetDoses =
       targetPopulation * doses * (coverage_rate / 100) * lossFactor;
 
     // log('buffer_stock: ' + bufferStockMonths);
@@ -144,8 +145,8 @@ const calculateForecastQuantities = (
     // log('lossFactor: ' + lossFactor);
 
     const forecastDoses =
-      (annualTargetStock / 12) * (supplyPeriodMonths + bufferStockMonths);
-    const forecastUnits = forecastDoses / vaccine_doses;
+      (annualTargetDoses / 12) * (supplyPeriodMonths + bufferStockMonths);
+    const forecastUnits = forecastDoses / dosesPerUnit;
 
     // log('forecastDoses: ' + forecastDoses);
     // log('forecastUnits: ' + forecastUnits);
@@ -156,9 +157,10 @@ const calculateForecastQuantities = (
       courseTitle,
       targetPopulation,
       lossFactor,
-      annualTargetStock,
+      annualTargetDoses,
       bufferStockMonths,
       supplyPeriodMonths,
+      dosesPerUnit,
       forecastDoses,
       forecastUnits,
     });
