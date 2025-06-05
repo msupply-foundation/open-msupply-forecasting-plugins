@@ -54,8 +54,8 @@ const ForecastColumn = ({ rowData }: CellProps<RequestLineFragment>) => {
   const { getById } = useColumnStore();
 
   const parsed = JSON.parse(getById(rowData)?.data || '{}');
-  const value = parsed?.forecastTotal
-    ? String(Math.ceil(parsed?.forecastTotal))
+  const value = parsed?.forecastTotalUnits
+    ? String(Math.ceil(parsed?.forecastTotalUnits))
     : UNDEFINED_STRING_VALUE;
 
   return <BasicCellLayout>{value}</BasicCellLayout>;
