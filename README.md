@@ -71,6 +71,8 @@ The back-end plugin returns an object containing the final totals, plus breakdow
   "vaccineCourses": [
     {
       "courseTitle": "Covid vaccination (Children)",
+      "numberOfDoses": 4,
+      "coverageRate": 80,
       "targetPopulation": 25000,
       "lossFactor": 2,
       "annualTargetDoses": 160000,
@@ -82,6 +84,8 @@ The back-end plugin returns an object containing the final totals, plus breakdow
     },
     {
       "courseTitle": "Measles program (Adults)",
+      "numberOfDoses": 2,
+      "coverageRate": 90,
       "targetPopulation": 40000,
       "lossFactor": 1.25,
       "annualTargetDoses": 90000,
