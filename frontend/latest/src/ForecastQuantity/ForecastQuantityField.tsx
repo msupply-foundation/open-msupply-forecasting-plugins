@@ -44,7 +44,7 @@ const ForecastQuantityField: ForecastQuantityFieldPlugin = ({
           value={value}
           label={t('plugin.forecasting.forecast-amount')}
           representation="units"
-          unitName={unitName}
+          unitName={unitName ?? ''}
           defaultPackSize={1}
           nullDisplay={UNDEFINED_STRING_VALUE}
         />
