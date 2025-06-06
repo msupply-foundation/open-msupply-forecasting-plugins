@@ -39,6 +39,9 @@ export const StateLoader: ArrayElement<
       dataIdentifier: { equalTo: 'FORECAST_QUANTITY_INFO' },
       relatedRecordId: { equalAny: props.requestLines.map(({ id }) => id) },
     },
+    // By using the line IDs as the keys, it will cause the query to re-fetch
+    // whenever a line is added/removed
+    queryKey: props.requestLines.map(line => line.id),
   });
 
   useEffect(() => {
