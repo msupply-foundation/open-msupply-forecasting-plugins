@@ -51,6 +51,7 @@ const plugins: BackendPlugins = {
         vaccineCourses.length > 0
           ? vaccineCourses.reduce((acc, curr) => acc + curr.forecastUnits, 0)
           : null;
+
       forecastedQuantities[line.id] = {
         forecastTotalDoses,
         forecastTotalUnits,
